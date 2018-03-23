@@ -21,7 +21,7 @@ swift SortingAlgorithm.swift
 - [x] Bubble sort
 - [x] Selection sort
 - [x] Insertion sort
-- [ ] Heap sort
+- [x] Heap sort
 - [ ] Merge sort
 - [ ] Quick sort
 - [ ] Linear Search
