@@ -20,9 +20,8 @@ class Sorter {
 				return selectionSort(for: elements)
 			case .insertionSort:
 				return insertionSort(for: elements)
-			case .heapSort:
-			//TODO: Yet to be implemented 
-				return elements
+			case .heapSort:				
+				return heapSort(for: elements)
 			case .mergeSort:
 			//TODO: Yet to be implemented
 				return elements
@@ -83,12 +82,50 @@ class Sorter {
 
 		return sortedElements
 	}
+
+	func heapSort(for elements: [Int]) -> [Int] {
+		let elementsCount = elements.count
+		var sortedElements = elements
+
+		for i in (0...(elementsCount / 2 - 1)).reversed() {
+			sortedElements = heapify(sortedElements, elementsCount, i)
+		}
+
+		for i in (0...(elementsCount - 1)).reversed() {
+			sortedElements.swapAt(0, i)
+			sortedElements = heapify(sortedElements, i, 0)
+		}
+
+		return sortedElements
+	}
+
+	func heapify(_ elements: [Int], _ length: Int, _ index: Int) -> [Int] {
+		let left = 2 * index + 1
+		let right = 2 * index + 2
+		var largest = index
+		var heapifiedElements = elements
+
+		if (left < length && heapifiedElements[left] > heapifiedElements[largest]) {
+			largest = left
+		}
+
+		if (right < length && heapifiedElements[right] > heapifiedElements[largest]) {
+			largest = right
+		}
+
+		if largest != index {
+			heapifiedElements.swapAt(index, largest)
+			heapifiedElements = heapify(heapifiedElements, length, largest)
+		}
+
+		return heapifiedElements
+	}
 }
 
 
 let sorter = Sorter()
 let input = [12, 63, 450, 24, 65, 35, 66, 101, 381, 4, 10, 1, 2]
-print(input)
-let output = sorter.sort(input, using: .insertionSort)
-print(output)
+print("---------------- Input --------------------- \n \(input)")
+let output = sorter.sort(input, using: .heapSort)
+print("---------------- Output --------------------- \n \(output)")
 
